@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import UilReact from "@iconscout/react-unicons/icons/uil-react";
+import TopButtons from "./components/TopButtons";
+import Inputs from "./components/Inputs";
+import TimeAndLocation from "./components/TimeAndLocation";
+import TemperatureAndDetails from "./components/TemperatureAndDetails";
+import Forcast from "./components/Forcast";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className=" mx-auto max-w-screen-md mt-4 py-5 px-32 grad bg-gradient-to-br from-cyan-700 to-blue-700 shadow-xl shadow-gray-400">
+      <TopButtons />
+      <Inputs />
+
+      <TimeAndLocation />
+      <TemperatureAndDetails />
+      <Forcast title={"Hourly Forcast"} />
+      <Forcast title={"Daily Forcast"} />
     </div>
   );
 }
