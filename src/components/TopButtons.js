@@ -24,10 +24,10 @@ const TopButtons = ({setQuery}) => {
     },
   ];
   return (
-    <div className=" flex items-center justify-around my-6">
+    <div className=" sm:flex flex-col text-center sm:flex-row sm:items-center sm:justify-around my-6">
       {cities.map((city) => {
         return (
-          <button onClick={()=>setQuery({q:city.title})} key={city.id} className="text-white text-lg font-medium">
+          <button onClick={()=>setQuery({q:city.title})} key={city.id} className="text-white text-2xl px-3 font-medium">
             {city.title}
           </button>
         );
