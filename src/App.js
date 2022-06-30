@@ -62,11 +62,13 @@ function App() {
         </div>
       ) : (
         <div className=" h-screen max-w-screen mx-auto flex items-center justify-center">
-          <Loader  />
+          <Loader />
         </div>
       )}
 
-      <ToastContainer autoClose={5000} theme="colored" newestOnTop={true} />
+      <div className=" hidden sm:block">
+        <ToastContainer autoClose={5000} theme="colored" newestOnTop={true} />
+      </div>
     </div>
   );
 }
