@@ -4,6 +4,7 @@ import Inputs from "./components/Inputs";
 import TimeAndLocation from "./components/TimeAndLocation";
 import TemperatureAndDetails from "./components/TemperatureAndDetails";
 import Forcast from "./components/Forcast";
+import Loader from "./components/Loader";
 import getFormattedWeatherData from "./services/WeatherService";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -13,24 +14,28 @@ function App() {
   const [query, setQuery] = useState({ q: "berlin" });
   const [units, setUnits] = useState("metric");
   const [weather, setWeather] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchWeather = async () => {
+      setLoading(true);
       const message = query.q ? query.q : "current location";
       toast.info("Fetching weather for " + message);
-      try{
-        await getFormattedWeatherData({ ...query, units })
-        .then((data) =>{
-          toast.success(`Successfully fetched weather for ${data.name}, ${data.country}`)
-          setWeather(data)
-        }
-        );
-
-      }catch(e){
-        toast.warn('Please check the input values');
+      try {
+        await getFormattedWeatherData({ ...query, units }).then((data) => {
+          toast.success(
+            `Successfully fetched weather for ${data.name}, ${data.country}`
+          );
+          setWeather(data);
+          setLoading(false);
+        });
+      } catch (e) {
+        toast.warn("Please check the input values");
         console.log(e);
+        setLoading(false);
+      } finally {
+        setLoading(false);
       }
-      
     };
     fetchWeather();
   }, [query, units]);
@@ -48,12 +53,16 @@ function App() {
     >
       <TopButtons setQuery={setQuery} />
       <Inputs setQuery={setQuery} units={units} setUnits={setUnits} />
-      {weather && (
+      {weather && !loading ? (
         <div>
           <TimeAndLocation weather={weather} />
           <TemperatureAndDetails weather={weather} />
           <Forcast title={"Hourly Forcast"} items={weather.hourly} />
           <Forcast title={"Daily Forcast"} items={weather.daily} />
+        </div>
+      ) : (
+        <div className=" h-screen max-w-screen mx-auto flex items-center justify-center">
+          <Loader  />
         </div>
       )}
 

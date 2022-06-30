@@ -6,7 +6,7 @@ const Inputs = ({ setQuery, units, setUnits }) => {
 
   const handleSearchClick = () => {
     if (city !== "") {
-      setQuery({ q: city });
+      setQuery({ q: city.trim() });
     }
   };
 
